@@ -15,8 +15,8 @@ third_val=third
 
 Previously set environment variables
 ```shell
-export key1=value1
-export key2=value2
+export some_val=value1
+export third_val=value2
 ```
 
 run:

@@ -2,7 +2,7 @@ Substitute values in configuration files using env variables
 
 Build with command
 ```shell
-go build -o filesubst cmd/filesubst/main.go
+go build -o cfgsubst cmd/cfgsubst/main.go
 ```
 
 File format:
@@ -21,6 +21,6 @@ export third_val=value2
 
 run:
 ```shell
-chmod +x filesubst
+chmod +x cfgsubst
 filesubst -f .env
 ```

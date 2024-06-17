@@ -50,20 +50,22 @@ func main() {
 	// Iterate through every line in file and substitute values if necessary
 	for scanner.Scan() {
 		line := scanner.Text()
-		if !re.MatchString(line) {
-			continue
-		}
-		split := strings.SplitN(line, "=", 2) // Split the line into key-value pair
-		if len(split) < 2 {
-			log.Fatalf("Invalid line %s", line)
-		}
-		key, value := split[0], split[1]
+		if re.MatchString(line) {
+			split := strings.SplitN(line, "=", 2) // Split the line into key-value pair
+			if len(split) < 2 {
+				log.Fatalf("Invalid line %s", line)
+			}
+			key, value := split[0], split[1]
 
-		// If environment variable exists, substitute. Otherwise, leave original value.
-		if envValue, exists := os.LookupEnv(key); exists {
-			lines = append(lines, key+"="+envValue)
+			// If environment variable exists, substitute. Otherwise, leave original value.
+			if envValue, exists := os.LookupEnv(key); exists {
+				lines = append(lines, key+"="+envValue)
+			} else {
+				lines = append(lines, key+"="+value)
+			}
 		} else {
-			lines = append(lines, key+"="+value)
+			// If line does not match the pattern, write it as-is.
+			lines = append(lines, line)
 		}
 	}
 
